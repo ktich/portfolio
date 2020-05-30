@@ -329,8 +329,8 @@ html body {
 .mask .strap-left {
   -webkit-transform: rotate(-150deg);
           transform: rotate(-150deg);
-  left: 65px;
-  top: -40px;
+  left: 68px;
+  top: -42px;
 }
 
 .mask .face-cover {
