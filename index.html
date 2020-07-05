@@ -16,81 +16,104 @@
   gtag('config', 'UA-168131318-1');
 </script>
 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
   <title>Kim Tichmann</title>
 </head>
 
-<body>    
-<div class="container">
-    <div class="heading"><h1>Kim Tichmann</h1></div>
+<body>        
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <div class="circle" role="img" alt="A pure CSS illustration of Kim Tichmann wearing glasses and a blue mask, on a yellow background.">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     
-    <div class="hair">
-        <div class="bang1"></div>
-        <div class="bang2"></div>
-        <div class="bang3"></div>
-        <div class="bang4"></div>
-        <div class="bang-left"></div>
-        <div class="bang-right"></div>
-        <div class="hair-back"></div>
-        <div class="right-curls">
-            <div class="curl"></div><div class="curl"></div><div class="curl"></div><div class="curl"></div><div class="curl"></div><div class="curl"></div><div class="curl"></div><div class="curl"></div><div class="curl"></div><div class="curl"></div>
+      <nav class="navbar navbar-expand-xl navbar-light">
+        <div class="d-flex flex-grow-1">
+            <span class="w-100 d-lg-none d-block"><!--centre on mobile--></span>
+            <a class="navbar-brand d-none d-lg-inline-block" href="#">
+              <img src="https://assets.codepen.io/2955201/internal/avatars/users/default.png?format=auto&amp;height=512&amp;version=1593859743&amp;width=512" alt="logo" width="80px">
+            </a>
+            <a class="navbar-brand-two mx-auto d-lg-none d-inline-block" href="#">
+                <img src="https://assets.codepen.io/2955201/internal/avatars/users/default.png?format=auto&amp;height=240&amp;version=1593859743&amp;width=512" width="80px" alt="logo">
+            </a>
+            <div class="w-100 text-right">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
         </div>
-        <div class="left-curls">
-            <div class="curl"></div><div class="curl"></div><div class="curl"></div><div class="curl"></div><div class="curl"></div><div class="curl"></div><div class="curl"></div><div class="curl"></div><div class="curl"></div><div class="curl"></div>
+        <div class="collapse navbar-collapse flex-grow-1 text-right" id="myNavbar">
+            <ul class="navbar-nav ml-auto flex-nowrap">
+                <li class="nav-item">
+                    <a href="#about" class="nav-link m-2 menu-item">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#projects" class="nav-link m-2 menu-item">Projects</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#contact" class="nav-link m-2 menu-item">Contact</a>
+              </li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="header">
+      <div class="header-text">
+      <h1>Hi 🌍! My name is Kim.</h1>
+      <p class="subtitle">I build apps and websites.<p>
+        <div class="follow"><a href="https://twitter.com/KTichmann" target="_blank"><image class="twitter" src="https://help.twitter.com/content/dam/help-twitter/brand/logo.png" width="45px" /></a><a href="https://codepen.io/ktich" target="_blank"><image src="https://blog.codepen.io/wp-content/uploads/2012/06/Button-Fill-Black-Large.png" width="35px"/></a><a href="https://github.com/ktich" target="_blank"><image src="https://github.githubassets.com/images/modules/open_graph/github-mark.png" width="60px"/></a></div>
+      </div>
+    </div>
+      
+    <div class="main-landing">
+      <div class="about" id="about">
+       <h2>About Me</h2> 
+        <p>I'm a self-taught developer with a passion for Education, based in Johannesburg, South Africa.</p>
+          <p>I started coding in 2017, with <a href="https://www.edx.org/course/cs50s-introduction-to-computer-science">CS50</a> on EdX—a great opportunity to build some Computer Science foundations. The course's problem sets in C and Python helped me strengthen my skills. I enjoy practicing my frontend development on CodePen and through building and deploying static sites using Github Pages.</p>
+    <p>Currently, I'm working on backend projects, including building Whatsapp bots with Python and NodeJS, and building Flask apps. I'm also extending my frontend skills by learning React.</p>
+          <p>I have a BA in Psychology from Harvard University and an M.Ed from the Harvard Graduate School of Education. I have experience teaching at a high school, leading communications, and working on evidence-based interventions with international teams.</p>
         </div>
     </div>
-
-    <div class="neck"></div>
     
-    <div class="face">
-        <div class="left-ear"><div class="inner-ear"></div></div>
-        <div class="right-ear"><div class="inner-ear"></div></div>
-        <div class="eyebrow-left"></div>
-        <div class="eyebrow-right"></div>
-        <div class="glasses">
-            <div class="frame-left"></div>
-            <div class="left-spec">
-                <div class="eye">
-                    <div class="inner-eye"></div>
-                </div>
+     <div id="projects" class="projects">
+        <h2>Projects</h2>
+        <p><em>This section is a work in progress.</em></p>
+        <div class="project-boxes">
+          <div><h3>WhatsApp Bot</h3>
+            <a href="#"><video width="100%" controls loop>
+          <source src="https://www.dropbox.com/s/tolsh5083v4gxiu/bot-video.mp4?raw=1" type="video/mp4">
+          Your browser does not support the video tag.
+              </video></a><p>A WhatsApp bot pulling from cat, dog, New York Times, and the MET APIs.</p>
             </div>
-            <div class="middle-glasses"></div>
-            <div class="right-spec">
-                <div class="eye">
-                    <div class="inner-eye"></div>
-                </div>
-            </div>
-            <div class="frame-right"></div>
-            <div class="mask">
-                <div class="strap-right"></div>
-                <div class="strap-left"></div>
-                <div class="strap-bottom"></div>
-                <div class="strap-bottom-right"></div>
-                <div class="face-cover">
-                    <div class="nose"></div>
-                    <div class="line1"></div>
-                    <div class="line2"></div>
-                    <div class="line3"></div>
-                </div>
-            </div>
+          <div><h3>Static Site</h3>
+            <a href="https://jpalafrica10.org/" target="_blank"><image src="https://www.dropbox.com/s/0ecko3af0eipdlu/J-PAL_Africa.png?raw=1" width="100%"></a>
+            <p>A celebration website for an organisation's 10 year anniversary</p>
+          </div>
+        </div>
+       
+       
     </div>
-    <div class="shoulders">
-        <div class="left-arm"></div>
-        <div class="right-arm"></div>
+    <hr>
+    <div id="contact">
+       <h2>Reach out!</h2>
+      
+       <p class="bottom-links">Find me on:</p>
+            <p><a href="https://codepen.io/ktich" target="_blank">CodePen</a> | <a href="https://github.com/ktich" target="_blank">GitHub</a> | <a href="https://twitter.com/KTichmann" target="_blank">Twitter</a> | <a href="https://www.linkedin.com/in/kim-tichmann-789387108/" target="_blank">LinkedIn</a></p>
+    
+     </div>
+    
     </div>
     
-</div>
-
+    
     </div>
-
-    <div class="text">
-        <h2>Coming Soon!</h2>
-
-        <p class="centre">In the meantime, find me on:</p>
-        <p class="centre"><a href="https://codepen.io/ktich">CodePen</a> | <a href="https://github.com/ktich">GitHub</a> | <a href="https://twitter.com/KTichmann">Twitter</a></p>
-    </div>
-
-</div>
+    
+        
+      <footer>
+        <p>Kim Tichmann &middot; 2020</p>
+        <p class="float-right"><a href="#">Back to top</a></p>
+    </footer>
+    
+    </body>
+    
+    </html>
 
 </body>
