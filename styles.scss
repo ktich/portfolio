@@ -48,7 +48,7 @@ body {
   }
   h3{
     font-size: 22px;
-    color: $secondary;
+    color: $main-brand;
   }
   h4{
     font-size: 26px;
@@ -481,6 +481,15 @@ html,body{
     }
   }
   .attribution{
-    font-size: 12px;
+    font-size: 11px;
+  }
+  .choose-level{
+    height: 80vh;
+    h1{
+      font-size: 24px;
+    }
+    h2{
+      font-size: 22px;
+    }
   }
 }

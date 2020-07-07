@@ -41,7 +41,7 @@ body h2 {
 
 body h3 {
   font-size: 22px;
-  color: #5a3896;
+  color: #2673ab;
 }
 
 body h4 {
@@ -523,7 +523,16 @@ html, body {
     font-size: 16px;
   }
   .attribution {
-    font-size: 12px;
+    font-size: 11px;
+  }
+  .choose-level {
+    height: 80vh;
+  }
+  .choose-level h1 {
+    font-size: 24px;
+  }
+  .choose-level h2 {
+    font-size: 22px;
   }
 }
 /*# sourceMappingURL=styles.css.map */
