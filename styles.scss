@@ -483,6 +483,8 @@ html,body{
     }
   }
   .attribution{
+    position: absolute;
+    bottom: 60px;
     font-size: 11px;
   }
   .choose-level{
@@ -493,5 +495,8 @@ html,body{
     h2{
       font-size: 22px;
     }
+  }
+  .footer-map-page{
+    bottom: 0px;
   }
 }

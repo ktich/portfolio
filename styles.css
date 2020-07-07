@@ -525,6 +525,8 @@ html, body {
     font-size: 16px;
   }
   .attribution {
+    position: absolute;
+    bottom: 60px;
     font-size: 11px;
   }
   .choose-level {
@@ -535,6 +537,9 @@ html, body {
   }
   .choose-level h2 {
     font-size: 22px;
+  }
+  .footer-map-page {
+    bottom: 0px;
   }
 }
 /*# sourceMappingURL=styles.css.map */
