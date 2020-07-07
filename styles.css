@@ -355,6 +355,7 @@ html, body {
 
 .choose-level .start-buttons > button {
   margin: auto;
+  margin-right: 10px;
   position: relative;
   display: -ms-inline-grid;
   display: inline-grid;
