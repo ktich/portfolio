@@ -282,3 +282,185 @@ form{
   }
   
 }
+
+//Map Design
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+$land: #2FAA9F;
+$background: #ebebeb;
+
+html,body{
+  text-align: center;
+  min-width: 100%;
+  font-family: 'Roboto', sans-serif;
+  background-color: $background;
+  position: relative;
+  padding: 0;
+  margin: 0;
+}
+.container{
+  position: relative;
+  max-width: 70%;
+  margin: auto;
+}
+
+.choose-level{
+  position: absolute;
+  background-color: black;
+  height: 100vh;
+  width: 100vw;
+  padding: 0;
+  margin: 0;
+  color: white;
+  text-align: center;
+  h1{
+    margin-top: 20vh;
+  }
+  h2{
+    color: white;
+  }
+  .start-buttons{
+    width: 100%;
+    text-align: center;
+  }
+  .start-buttons>button{
+    margin: auto;
+    position: relative;
+    display: inline-grid;
+    top: 50%;
+    padding: 10px;
+    font-size: 20px;
+    border-radius: 10px;
+    border: none;
+    box-shadow: 2px 2px 2px grey;
+  }
+}
+
+.container-advanced{
+  display: none;
+}
+
+.container-beginner{
+  display: none;
+}
+
+.circle{
+  opacity: 0;
+}
+
+.land{
+   fill: $land;
+   fill-opacity: 1;
+   stroke: $background;
+   stroke-opacity: 1;
+   stroke-width:0.5;
+   stroke-miterlimit: 3.97446823;
+   stroke-dasharray: none;
+}
+
+
+.attribution{
+  position: absolute;
+  bottom: 70px;
+  padding-bottom: 0px;
+  font-size: 14px;
+  color: black;
+  a{
+    text-decoration: none;
+    color: black;
+  }
+}
+
+.map{
+  position: relative;
+  padding-top: 30px;
+  margin-left: 15%;
+  max-width: 75%;
+  svg{
+    max-width: 100%;
+  }
+}
+
+#quiz-container{
+ display: none;
+ grid-template-columns: 50% 50%;
+}
+
+.container-advanced,.container-beginner{
+  position: relative;
+  top: 25%;
+  height: 75%;
+  margin-left: 0px;
+  text-align: left;
+  #time,#time2{
+    font-size: 22px;
+    color: red;
+  }
+  button{
+    position: absolute;
+    top: 200px;
+  }
+  p{
+    position: relative;
+  }
+  h1{
+    position: relative;
+    text-align: left;
+  }
+  #answer,#answer-beginner{
+    position: absolute;
+    padding: 10px;
+    top: 200px;
+    font-size: 16px;
+    display: none;
+  }
+  #score-beginner,#score{
+    position: relative;
+    font-size: 20px;
+  }
+}
+
+#game-over{
+  display: none;
+  position: relative;
+  margin: auto;
+  #game-over-score{
+    position: relative;
+    font-size: 26px;
+    padding-top: 35vh;
+    margin: 0;
+    padding-bottom: 10px;
+  }
+  button{
+    padding: 10px;
+    font-size: 20px;
+    margin: 10px;
+    border: none;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  #quiz-container{
+    grid-template-columns: 100%;
+  }
+  .map{
+    width: 100%;
+  }
+  .container-advanced,.container-beginner{
+    height: 100vh;
+    padding: 20px;
+    button{
+      position: relative;
+      top: 10px;
+    }
+    #beginner-start{
+      margin-top: 0px;
+    }
+  }
+  #answer,#answer-beginner{
+    position: relative;
+    padding: 10px;
+    font-size: 16px;
+    display: none;
+    top: 10px;
+  }
+}

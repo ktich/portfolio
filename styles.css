@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,100;1,300;1,400;1,500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 html {
   margin: 0;
   padding: 0;
@@ -309,6 +310,201 @@ form .form-ul-container li > button {
     -webkit-box-flex: 2;
         -ms-flex: 2;
             flex: 2;
+  }
+}
+
+html, body {
+  text-align: center;
+  min-width: 100%;
+  font-family: 'Roboto', sans-serif;
+  background-color: #ebebeb;
+  position: relative;
+  padding: 0;
+  margin: 0;
+}
+
+.container {
+  position: relative;
+  max-width: 70%;
+  margin: auto;
+}
+
+.choose-level {
+  position: absolute;
+  background-color: black;
+  height: 100vh;
+  width: 100vw;
+  padding: 0;
+  margin: 0;
+  color: white;
+  text-align: center;
+}
+
+.choose-level h1 {
+  margin-top: 20vh;
+}
+
+.choose-level h2 {
+  color: white;
+}
+
+.choose-level .start-buttons {
+  width: 100%;
+  text-align: center;
+}
+
+.choose-level .start-buttons > button {
+  margin: auto;
+  position: relative;
+  display: -ms-inline-grid;
+  display: inline-grid;
+  top: 50%;
+  padding: 10px;
+  font-size: 20px;
+  border-radius: 10px;
+  border: none;
+  -webkit-box-shadow: 2px 2px 2px grey;
+          box-shadow: 2px 2px 2px grey;
+}
+
+.container-advanced {
+  display: none;
+}
+
+.container-beginner {
+  display: none;
+}
+
+.circle {
+  opacity: 0;
+}
+
+.land {
+  fill: #2FAA9F;
+  fill-opacity: 1;
+  stroke: #ebebeb;
+  stroke-opacity: 1;
+  stroke-width: 0.5;
+  stroke-miterlimit: 3.97446823;
+  stroke-dasharray: none;
+}
+
+.attribution {
+  position: absolute;
+  bottom: 70px;
+  padding-bottom: 0px;
+  font-size: 14px;
+  color: black;
+}
+
+.attribution a {
+  text-decoration: none;
+  color: black;
+}
+
+.map {
+  position: relative;
+  padding-top: 30px;
+  margin-left: 15%;
+  max-width: 75%;
+}
+
+.map svg {
+  max-width: 100%;
+}
+
+#quiz-container {
+  display: none;
+  -ms-grid-columns: 50% 50%;
+      grid-template-columns: 50% 50%;
+}
+
+.container-advanced, .container-beginner {
+  position: relative;
+  top: 25%;
+  height: 75%;
+  margin-left: 0px;
+  text-align: left;
+}
+
+.container-advanced #time, .container-advanced #time2, .container-beginner #time, .container-beginner #time2 {
+  font-size: 22px;
+  color: red;
+}
+
+.container-advanced button, .container-beginner button {
+  position: absolute;
+  top: 200px;
+}
+
+.container-advanced p, .container-beginner p {
+  position: relative;
+}
+
+.container-advanced h1, .container-beginner h1 {
+  position: relative;
+  text-align: left;
+}
+
+.container-advanced #answer, .container-advanced #answer-beginner, .container-beginner #answer, .container-beginner #answer-beginner {
+  position: absolute;
+  padding: 10px;
+  top: 200px;
+  font-size: 16px;
+  display: none;
+}
+
+.container-advanced #score-beginner, .container-advanced #score, .container-beginner #score-beginner, .container-beginner #score {
+  position: relative;
+  font-size: 20px;
+}
+
+#game-over {
+  display: none;
+  position: relative;
+  margin: auto;
+}
+
+#game-over #game-over-score {
+  position: relative;
+  font-size: 26px;
+  padding-top: 35vh;
+  margin: 0;
+  padding-bottom: 10px;
+}
+
+#game-over button {
+  padding: 10px;
+  font-size: 20px;
+  margin: 10px;
+  border: none;
+}
+
+@media only screen and (max-width: 600px) {
+  #quiz-container {
+    -ms-grid-columns: 100%;
+        grid-template-columns: 100%;
+  }
+  .map {
+    width: 100%;
+  }
+  .container-advanced, .container-beginner {
+    height: 100vh;
+    padding: 20px;
+  }
+  .container-advanced button, .container-beginner button {
+    position: relative;
+    top: 10px;
+  }
+  .container-advanced #beginner-start, .container-beginner #beginner-start {
+    margin-top: 0px;
+  }
+  #answer, #answer-beginner {
+    position: relative;
+    padding: 10px;
+    font-size: 16px;
+    display: none;
+    top: 10px;
   }
 }
 /*# sourceMappingURL=styles.css.map */
