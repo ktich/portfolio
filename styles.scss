@@ -483,7 +483,7 @@ html,body{
     }
   }
   .attribution{
-    position: absolute;
+    position: relative;
     bottom: 60px;
     font-size: 11px;
   }
@@ -497,6 +497,6 @@ html,body{
     }
   }
   .footer-map-page{
-    bottom: 0px;
+    display: none;
   }
 }
