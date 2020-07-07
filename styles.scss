@@ -439,15 +439,20 @@ html,body{
   }
 }
 
+// map responsive
 @media only screen and (max-width: 600px) {
   #quiz-container{
     grid-template-columns: 100%;
   }
   .map{
     width: 100%;
+    svg{
+      width: 100%;
+    }
   }
   .container-advanced,.container-beginner{
-    height: 100vh;
+    top: 0px;
+    height: 50vh;
     padding: 20px;
     button{
       position: relative;
@@ -456,12 +461,26 @@ html,body{
     #beginner-start{
       margin-top: 0px;
     }
+    h1{
+      font-size: 24px;
+      top: 0px;
+    }
+    #answer,#answer-beginner{
+      position: relative;
+      padding: 10px;
+      font-size: 16px;
+      display: none;
+      top: 0px;
+      margin-top: 0px;
+    }
+    #score-beginner,#score{
+      font-size: 16px;
+    }
+    #time,#time2{
+      font-size: 16px;
+    }
   }
-  #answer,#answer-beginner{
-    position: relative;
-    padding: 10px;
-    font-size: 16px;
-    display: none;
-    top: 10px;
+  .attribution{
+    font-size: 12px;
   }
 }

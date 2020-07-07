@@ -489,8 +489,12 @@ html, body {
   .map {
     width: 100%;
   }
+  .map svg {
+    width: 100%;
+  }
   .container-advanced, .container-beginner {
-    height: 100vh;
+    top: 0px;
+    height: 50vh;
     padding: 20px;
   }
   .container-advanced button, .container-beginner button {
@@ -500,12 +504,26 @@ html, body {
   .container-advanced #beginner-start, .container-beginner #beginner-start {
     margin-top: 0px;
   }
-  #answer, #answer-beginner {
+  .container-advanced h1, .container-beginner h1 {
+    font-size: 24px;
+    top: 0px;
+  }
+  .container-advanced #answer, .container-advanced #answer-beginner, .container-beginner #answer, .container-beginner #answer-beginner {
     position: relative;
     padding: 10px;
     font-size: 16px;
     display: none;
-    top: 10px;
+    top: 0px;
+    margin-top: 0px;
+  }
+  .container-advanced #score-beginner, .container-advanced #score, .container-beginner #score-beginner, .container-beginner #score {
+    font-size: 16px;
+  }
+  .container-advanced #time, .container-advanced #time2, .container-beginner #time, .container-beginner #time2 {
+    font-size: 16px;
+  }
+  .attribution {
+    font-size: 12px;
   }
 }
 /*# sourceMappingURL=styles.css.map */
