@@ -1,2 +1,10 @@
 # portfolio
-Holding page for my portfolio site.
+
+A static site to house my portfolio.
+
+Visit kimtichmann.com!
+
+## Technologies
+HTML
+CSS
+JavaScript
