@@ -2,7 +2,7 @@
 
 A static site to house my portfolio.
 
-Visit kimtichmann.com!
+Visit www.kimtichmann.com!
 
 ## Technologies
 HTML
