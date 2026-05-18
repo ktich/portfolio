@@ -277,3 +277,243 @@ a:hover {
   .footer { flex-direction: column; align-items: flex-start; }
   .theme-toggle { top: 16px; right: 16px; }
 }
+
+/* ── Case study ── */
+.case-study {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.case-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.case-title {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: clamp(20px, 3vw, 26px);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+.case-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.case-block {
+  background: var(--surface);
+  padding: 20px 22px;
+}
+
+.case-block .label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 8px;
+}
+
+.case-block p {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: var(--mid);
+  line-height: 1.65;
+}
+
+code {
+  font-family: 'DM Mono', 'Courier New', monospace;
+  font-size: 12px;
+  background: var(--teal-lt);
+  color: var(--teal-dk);
+  padding: 2px 6px;
+  border-radius: 2px;
+}
+
+@media (max-width: 600px) {
+  .case-grid { grid-template-columns: 1fr; }
+}
+
+/* ===== ADDITIONS — nav, case study cards, case study page ===== */
+
+/* ── Site nav ── */
+.site-nav {
+  position: fixed;
+  top: 24px;
+  left: 40px;
+  z-index: 100;
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.nav-link {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: none;
+  transition: color 0.15s;
+}
+
+.nav-link:hover {
+  color: var(--teal);
+  border-bottom: none;
+}
+
+.nav-link.nav-active {
+  color: var(--teal);
+}
+
+/* ── Case study preview cards (homepage + index) ── */
+.cs-preview-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.cs-full-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.cs-card {
+  background: var(--surface);
+  padding: 24px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-decoration: none;
+  border-bottom: none;
+  transition: background 0.15s;
+}
+
+.cs-card:hover {
+  background: var(--teal-lt);
+  border-bottom: none;
+}
+
+.cs-card-soon {
+  opacity: 0.55;
+  cursor: default;
+  pointer-events: none;
+}
+
+.cs-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.cs-card-title {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.4;
+}
+
+.cs-card-desc {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: var(--mid);
+  line-height: 1.65;
+}
+
+.cs-card-meta {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+
+.cs-card-cta {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--teal);
+  margin-top: 4px;
+}
+
+.cs-card-cta-soon {
+  color: var(--muted);
+}
+
+/* ── Case study page — phase blocks ── */
+.cs-phase {
+  border-left: 3px solid var(--teal);
+  padding: 14px 20px;
+  margin-bottom: 12px;
+  background: var(--surface);
+}
+
+.cs-phase-upcoming {
+  border-left-color: var(--border);
+  opacity: 0.7;
+}
+
+.cs-phase-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 6px;
+}
+
+.cs-phase-upcoming .cs-phase-label {
+  color: var(--muted);
+}
+
+.cs-phase .body {
+  margin-bottom: 0;
+}
+
+/* ── code inline ── */
+code {
+  font-family: 'DM Mono', 'Courier New', monospace;
+  font-size: 12px;
+  background: var(--teal-lt);
+  color: var(--teal-dk);
+  padding: 2px 6px;
+}
+
+/* ── Mobile additions ── */
+@media (max-width: 600px) {
+  .site-nav {
+    left: 24px;
+    top: 16px;
+    gap: 16px;
+  }
+
+  .cs-preview-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .page {
+    padding-top: 88px;
+  }
+}
