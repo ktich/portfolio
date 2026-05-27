@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="../styles.css">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="../static/favicon_io/favicon.svg">
+  <title>RAG Assistant Case Study | Kim Tichmann</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+  <button class="theme-toggle" id="theme-toggle">◑ Dark</button>
+
+  <nav class="site-nav">
+    <a href="../index.html" class="nav-link">Home</a>
+    <a href="../case-studies.html" class="nav-link nav-active">Case Studies</a>
+  </nav>
+
+  <div class="page">
+
+    <!-- HEADER -->
+    <div class="header">
+      <div class="eyebrow fade">AI · Product tooling · 2026</div>
+      <h1 class="fade" style="font-size: clamp(32px, 6vw, 52px);">Building a RAG assistant for product documentation</h1>
+      <p class="tagline fade">
+        ECD Connect · Claude API · R Shiny · BM25 · DuckDB
+      </p>
+    </div>
+
+    <!-- AT A GLANCE -->
+    <section class="fade">
+      <div class="section-label">At a glance</div>
+      <div class="expertise-grid">
+        <div class="expertise-item">
+          <div class="label">The problem</div>
+          <div class="desc">35+ feature modules in a multi-tab spreadsheet, queryable only by opening the file and scanning rows manually.</div>
+        </div>
+        <div class="expertise-item">
+          <div class="label">What I built</div>
+          <div class="desc">A natural-language Q&amp;A tool that answers questions about product features, roles, and behaviours from the team's own use case documentation.</div>
+        </div>
+        <div class="expertise-item">
+          <div class="label">My role</div>
+          <div class="desc">Solo. Architecture, document parsers, retrieval logic, prompt engineering, and deployment.</div>
+        </div>
+        <div class="expertise-item">
+          <div class="label">Stack</div>
+          <div class="desc">R · Shiny · ragnar · DuckDB · BM25 · Anthropic Claude Sonnet API · shinyapps.io</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE PROBLEM -->
+    <section class="fade">
+      <div class="section-label">The problem</div>
+      <p class="lead">
+        The documentation was good. Finding things in it didn't scale.
+      </p>
+      <p class="body">
+        ECD Connect's use case documentation covers every feature the platform supports: who can do what, under which role, online or offline, and how the points engine rewards it. That documentation lives in a single Excel file with four structurally different tab types — use case specs, an offline/online matrix, a points table, and a notifications schedule.
+      </p>
+      <p class="body">
+        Answering a question like "which features work offline for practitioners?" meant opening the file, navigating to the right tab, and scanning rows. For the PM, QA lead, and user support staff, this was a recurring cost across every sprint — not large on any individual query, but constant.
+      </p>
+    </section>
+
+    <!-- ARCHITECTURE -->
+    <section class="fade">
+      <div class="section-label">Architecture</div>
+      <p class="lead">
+        Four format-aware parsers feeding a BM25 index.
+      </p>
+      <p class="body">
+        The main design decision was how to parse the source file. The four tab types use meaningfully different structures, so chunking by character count would have thrown away that structure and degraded retrieval. Instead I wrote one parser per tab type, each preserving the tab's structure and prepending contextual metadata to every chunk: feature set, functional area, online/offline availability, role context, and an example question the chunk can answer. The example question significantly improves BM25 recall by giving the index something to match against user phrasing.
+      </p>
+
+      <div class="expertise-grid" style="margin-top: 16px;">
+        <div class="expertise-item">
+          <div class="label">Frontend</div>
+          <div class="desc">R Shiny app on shinyapps.io. Custom UI with markdown rendering, conversation history, and example questions in the sidebar.</div>
+        </div>
+        <div class="expertise-item">
+          <div class="label">Retrieval</div>
+          <div class="desc">BM25 full-text search over a ragnar/DuckDB index built in-memory from the parsed source at app start. Default: top 5 chunks. Points, notifications, and offline queries automatically retrieve top 8 — those domains span multiple feature sets and need more context.</div>
+        </div>
+        <div class="expertise-item">
+          <div class="label">Generation</div>
+          <div class="desc">Claude Sonnet via the Anthropic Messages API. Each request passes the retrieved chunks as context plus the previous Q&amp;A exchange, enabling follow-up questions without rebuilding a full chat history.</div>
+        </div>
+        <div class="expertise-item">
+          <div class="label">Retrieval routing</div>
+          <div class="desc">Chunk count is bumped from 5 to 8 when a query mentions points, notifications, or offline behaviour — detected via keyword matching before the BM25 call. A simple heuristic that meaningfully improves results on the most common query types.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROMPT ENGINEERING -->
+    <section class="fade">
+      <div class="section-label">Prompt engineering</div>
+      <p class="body">
+        The system prompt instructs the model to answer only from the provided context, name the specific use case or feature set it's drawing from, address all relevant use cases when a question spans more than one, and say clearly when the context is insufficient. The priority was a tool the team could trust — which meant being explicit about the boundary between what the documentation says and what the model might otherwise infer.
+      </p>
+      <div class="highlight">
+        <strong>Sample interaction:</strong> "Which feature set covers attendance and how can users track attendance for children?" → The model returns a grounded answer citing Feature Set W6, with role-based business rules (principals vs practitioners with and without permission) drawn directly from the indexed documentation.
+      </div>
+    </section>
+
+    <!-- STATUS -->
+    <section class="fade">
+      <div class="section-label">Status</div>
+      <p class="lead">Live since March 2026.</p>
+      <p class="body">
+        Used by the product team (PM, QA lead, user support) since March 2026. Questions about feature availability, role permissions, points calculations, and notification triggers are answered in seconds rather than requiring a manual spreadsheet lookup.
+      </p>
+      <p class="body">
+        Usage logging is in progress — query volume and a retrieval quality signal — to identify which query types return weak results and whether changes to the parsers or index would help.
+      </p>
+    </section>
+
+    <!-- LIMITATIONS -->
+    <section class="fade">
+      <div class="section-label">Limitations &amp; next steps</div>
+      <p class="body">BM25 is a strong baseline for this use case, but has known gaps worth addressing:</p>
+
+      <div class="cs-phase">
+        <div class="cs-phase-label">Synonym and paraphrase mismatches</div>
+        <p class="body">BM25 matches on exact terms. A query about "marking attendance" may miss chunks that use "taking a register." A lightweight embedding layer as semantic fallback would improve coverage on the long tail of queries.</p>
+      </div>
+
+      <div class="cs-phase">
+        <div class="cs-phase-label">No retrieval quality feedback loop yet</div>
+        <p class="body">Usage logging is in progress. Until it's live, iteration on chunking and routing relies on ad hoc testing rather than signal from real queries.</p>
+      </div>
+
+      <div class="cs-phase">
+        <div class="cs-phase-label">Source file coupling</div>
+        <p class="body">The index rebuilds from the Excel source at app start. If the source structure changes significantly, the parsers need updating. A more robust version would decouple ingestion from the app startup cycle entirely.</p>
+      </div>
+
+      <div class="cs-phase">
+        <div class="cs-phase-label">No source citations in the UI</div>
+        <p class="body">The model names the feature set it's drawing from, but the interface doesn't surface the raw retrieved chunks. A "show source" toggle would let users verify answers against the documentation directly.</p>
+      </div>
+
+    </section>
+
+    <!-- BACK LINK -->
+    <div class="footer">
+      <a href="../case-studies.html">← All case studies</a>
+      <span>Kim Tichmann — Cape Town, South Africa</span>
+    </div>
+
+  </div>
+
+  <script>
+    const toggle = document.getElementById('theme-toggle');
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      toggle.textContent = '☀ Light';
+    }
+    toggle.addEventListener('click', function () {
+      if (document.documentElement.hasAttribute('data-theme')) {
+        document.documentElement.removeAttribute('data-theme');
+        toggle.textContent = '◑ Dark';
+        localStorage.setItem('theme', 'light');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        toggle.textContent = '☀ Light';
+        localStorage.setItem('theme', 'dark');
+      }
+    });
+  </script>
+</body>
+</html>
