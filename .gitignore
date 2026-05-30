@@ -1,0 +1,13 @@
+# Mac
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# VS Code
+.vscode/
+
+# Node
+node_modules/
+
+# Misc
+Thumbs.db

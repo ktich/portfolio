@@ -1,4 +1,4 @@
-/* ===== KIM TESTTEST — PORTFOLIO STYLES ===== */
+/* ===== PORTFOLIO STYLES ===== */
 
 @import url("https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap");
 
@@ -383,7 +383,7 @@ code {
 /* ── Case study preview cards (homepage + index) ── */
 .cs-preview-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 1px;
   background: var(--border);
   border: 1px solid var(--border);
