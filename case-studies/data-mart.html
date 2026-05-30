@@ -71,7 +71,7 @@
     <section class="fade">
       <div class="section-label">Source database exploration</div>
       <p class="lead">
-        The schema was created for application logic rather reporting logic.
+        The schema was created for application logic rather than reporting logic.
       </p>
       <p class="body">
       Understanding the source database meant months of exploration: tracing foreign keys, reading application code, testing assumptions against real data, and building up a mental model of what the schema actually represented versus what it was named. 
@@ -133,7 +133,7 @@
 
       <div class="cs-phase cs-phase-upcoming">
         <div class="cs-phase-label">Phase 4 & 5: Upcoming</div>
-        <p class="body">Visit responses (clinical data — HIV status, MUAC, nutrition, immunisation), growth measurements, referrals, and a combined de-identified dataset spanning both platforms for government and funder reporting.</p>
+        <p class="body">Visit responses (clinical data: HIV status, MUAC, nutrition, immunisation), growth measurements, referrals, and a combined de-identified dataset spanning both platforms for government and funder reporting.</p>
       </div>
     </section>
 
@@ -141,10 +141,10 @@
     <section class="fade">
       <div class="section-label">What it enables</div>
       <p class="body">
-        Downstream dashboards that previously queried production directly now run off a clean, tested reporting layer. Clinical and programme queries that required complex multi-table joins with source-specific quirks hardcoded into every panel are now single-table queries against reliable mart tables.
+        Downstream dashboards can now query a clean, tested reporting layer rather than production directly. Clinical and programme queries that required complex multi-table joins with source-specific quirks hardcoded into every panel are now single-table queries against reliable mart tables.
       </p>
       <p class="body">
-        The mart is the foundation for the combined de-identified dataset that will support government planning and funder reporting — the long-term goal of the ECD Connect data infrastructure.
+        The mart is the foundation for the combined de-identified dataset that will support government planning and funder reporting, the long-term goal of the ECD Connect data infrastructure.
       </p>
       <div class="highlight">
         <strong>Scale:</strong> Over 4,000 practitioners and community health workers. More than 16,000 children and clients. 70,000+ CHW visits. Two platforms, two source databases, one reporting layer.
