@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="static/favicon_io/favicon.svg">
+  <title>Case Studies | Kim Tichmann</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+  <button class="theme-toggle" id="theme-toggle">◑ Dark</button>
+
+  <nav class="site-nav">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="case-studies.html" class="nav-link nav-active">Case Studies</a>
+  </nav>
+
+  <div class="page">
+
+    <div class="header">
+      <div class="eyebrow fade">Work</div>
+      <h1 class="fade">Case Studies</h1>
+      <p class="tagline fade">
+        Selected projects in depth: the problem, the approach, and what it took to get there.
+      </p>
+    </div>
+
+    <section class="fade">
+      <div class="cs-full-grid">
+
+        <a href="case-studies/data-mart.html" class="cs-card cs-card-full">
+          <div class="cs-card-tags">
+            <span class="pill">Analytics Engineering</span>
+            <span class="pill">dbt · PostgreSQL · Git</span>
+            <span class="pill">ECD Connect · Grow Great</span>
+          </div>
+          <div class="cs-card-title">Building a reporting data mart from a production app database</div>
+          <div class="cs-card-desc">How I modelled raw operational data from two platforms into a clean, tested reporting layer serving over 4,000 practitioners and 16,000 children and clients across South Africa. And what it took to understand a database that was never designed to be queried directly.</div>
+          <div class="cs-card-meta">Analytics Engineering · dbt · PostgreSQL · 17+ models</div>
+          <div class="cs-card-cta">Read case study →</div>
+        </a>
+
+        <a href="case-studies/rag-assistant.html" class="cs-card cs-card-full">
+          <div class="cs-card-tags">
+            <span class="pill">AI · RAG</span>
+            <span class="pill">Claude API · R Shiny · BM25</span>
+          </div>
+          <div class="cs-card-title">Building a RAG assistant for product documentation</div>
+          <div class="cs-card-desc">A deployed assistant that lets the internal product team query 35+ feature modules in natural language, replacing manual spreadsheet lookups during sprint planning and QA. Built with the Claude API, BM25 retrieval, and R Shiny.</div>
+          <div class="cs-card-meta">AI · RAG · Claude API · Production deployment</div>
+          <div class="cs-card-cta">Read case study →</div>
+        </a>
+
+      </div>
+    </section>
+
+    <div class="footer">
+      <span>Kim Tichmann | Cape Town, South Africa</span>
+      <a href="index.html">← Back to home</a>
+    </div>
+
+  </div>
+
+  <script>
+    const toggle = document.getElementById('theme-toggle');
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      toggle.textContent = '☀ Light';
+    }
+    toggle.addEventListener('click', function () {
+      if (document.documentElement.hasAttribute('data-theme')) {
+        document.documentElement.removeAttribute('data-theme');
+        toggle.textContent = '◑ Dark';
+        localStorage.setItem('theme', 'light');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        toggle.textContent = '☀ Light';
+        localStorage.setItem('theme', 'dark');
+      }
+    });
+  </script>
+</body>
+</html>

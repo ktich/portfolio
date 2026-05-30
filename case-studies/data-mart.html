@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="../styles.css">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="../static/favicon_io/favicon.svg">
+  <title>Data Mart Case Study | Kim Tichmann</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+  <button class="theme-toggle" id="theme-toggle">◑ Dark</button>
+
+  <nav class="site-nav">
+    <a href="../index.html" class="nav-link">Home</a>
+    <a href="../case-studies.html" class="nav-link nav-active">Case Studies</a>
+  </nav>
+
+  <div class="page">
+
+    <!-- HEADER -->
+    <div class="header">
+      <div class="eyebrow fade">Analytics Engineering · 2025–2026</div>
+      <h1 class="fade" style="font-size: clamp(32px, 6vw, 52px);">Building a reporting data mart from a production app database</h1>
+      <p class="tagline fade">
+        ECD Connect · CHW Connect (Grow Great) · dbt · PostgreSQL · Git
+      </p>
+    </div>
+
+    <!-- AT A GLANCE -->
+    <section class="fade">
+      <div class="section-label">At a glance</div>
+      <div class="expertise-grid">
+        <div class="expertise-item">
+          <div class="label">The problem</div>
+          <div class="desc">Two production databases built for an app and a CMS — not for reporting. Getting reliable programme data out of them required understanding a schema that was never designed to be queried directly.</div>
+        </div>
+        <div class="expertise-item">
+          <div class="label">What I built</div>
+          <div class="desc">A production reporting data mart using dbt: 17+ tested dimension and fact tables across two schemas, spanning education and health data for over 4,000 practitioners and 16,000 children and clients.</div>
+        </div>
+        <div class="expertise-item">
+          <div class="label">My role</div>
+          <div class="desc">Solo analytics engineer. Source database exploration, schema design, SQL, dbt modelling, testing, documentation, and data quality investigation — end to end.</div>
+        </div>
+        <div class="expertise-item">
+          <div class="label">Stack</div>
+          <div class="desc">PostgreSQL on Azure · dbt 1.11 · postgres_fdw · DBeaver · Git · Grafana (dashboards, upcoming)</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTEXT -->
+    <section class="fade">
+      <div class="section-label">Context</div>
+      <p class="lead">
+        ECD Connect supports over 4,000 early childhood practitioners across South Africa. CHW Connect, built on the same codebase for Grow Great, supports community health workers visiting pregnant clients and infants in underserved communities.
+      </p>
+      <p class="body">
+        Both platforms generate rich programme data: attendance, child development assessments, practitioner registrations, income statements, CHW visits, clinical screenings. The problem was that all of it lived in a production database built for an app, not for analysis. Querying it directly meant dealing with misleading table names, unreliable flags, missing timestamps, and joins that only made sense once you understood the application logic behind them.
+      </p>
+      <p class="body">
+        Partner organisations and funders needed reliable programme data. Dashboards were being built directly against production. The process was fragile, slow, and dependent on whoever had written the query understanding all the source quirks. The goal was to build a clean, tested, documented reporting layer that would make all of that sustainable.
+      </p>
+    </section>
+
+    <!-- SOURCE DATABASE -->
+    <section class="fade">
+      <div class="section-label">Source database</div>
+      <p class="lead">
+        The schema was created for application logic rather reporting logic.
+      </p>
+      <p class="body">
+          Both source databases were built to serve an application and a CMS. That is what they are optimised for, and they do it well. The reporting data mart exists because querying an application database directly for analysis is slow, fragile, and requires anyone writing a query to understand the full application logic behind every table and join. The mart translates that into something analysts and dashboards can query reliably without that context.      </p>
+      <p class="body">
+        Building it also meant an opportunity to fix naming that had drifted from what the data actually represents. What should be called a "preschool" is named Classroom. What should be called a "class" is ClassroomGroup. Those get corrected once at the staging layer so nothing downstream inherits the confusion.
+      </p>
+      <p class="body">
+      Understanding the database meant months of exploration: tracing foreign keys, reading application code, testing assumptions against real data, and building up a mental model of what the schema actually represented versus what it was named. 
+      </p>
+      <div class="highlight">
+        <strong>One example:</strong> Closing a client folder in the app triggers three different event types in the source database — only one of which sits under a <code>close_folder</code> parent type. The other two (<code>baby_was_born</code> and <code>miscarriage</code>) are top-level event types with no parent. Handling only the obvious path left folder-closed counts off by over 1,400 records. There were also 535 records where <code>IsActive</code> had been set to false with no corresponding event at all — a product bug, now ticketed.
+      </div>
+    </section>
+
+    <!-- APPROACH -->
+    <section class="fade">
+      <div class="section-label">Approach</div>
+      <p class="body">
+        Three-layer dbt architecture, following analytics engineering conventions:
+      </p>
+      <div class="expertise-grid" style="margin-top: 16px;">
+        <div class="expertise-item">
+          <div class="label">Staging layer</div>
+          <div class="desc">One model per source table. Renames PascalCase columns to snake_case, applies plain-English table names, drops irrelevant columns (UI engagement tracking, ghost columns), and filters invalid rows (infinity timestamps, test users). Views, not tables.</div>
+        </div>
+        <div class="expertise-item">
+          <div class="label">Intermediate layer</div>
+          <div class="desc">Complex join logic that would otherwise be repeated across multiple mart models — cohort membership resolution, deduplication patterns, derived flags.</div>
+        </div>
+        <div class="expertise-item">
+          <div class="label">Mart layer</div>
+          <div class="desc">Analysis-ready dimension and fact tables. Denormalised where needed for dashboard performance. Full geography chains pre-resolved. All data quality decisions documented in model descriptions and the project README.</div>
+        </div>
+        <div class="expertise-item">
+          <div class="label">Testing & documentation</div>
+          <div class="desc">dbt data tests on every primary key and critical foreign key. Known anomalies documented with warn-level tests so they surface in the build output rather than silently corrupting downstream queries. One schema.yml per folder.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT WAS BUILT -->
+    <section class="fade">
+      <div class="section-label">What was built</div>
+
+      <p class="body" style="margin-bottom: 20px;">Three phases complete, two in progress:</p>
+
+      <div class="cs-phase">
+        <div class="cs-phase-label">Phase 1 — Education core ✅</div>
+        <p class="body">Practitioners, preschools, classes, children, attendance, register completion, cohorts. The first end-to-end slice proving the pipeline worked.</p>
+      </div>
+
+      <div class="cs-phase">
+        <div class="cs-phase-label">Phase 2 — Education depth ✅</div>
+        <p class="body">Child progress reports and skill observations (with reverse-scoring logic), DBE registration tracking (with history-based recovery for a source bug), practitioner self-assessment forms, income statements. Ten models, all with documented data quality handling.</p>
+      </div>
+
+      <div class="cs-phase">
+        <div class="cs-phase-label">Phase 3 — Health mart ✅</div>
+        <p class="body">New schema (<code>mart_health</code>), new source database (<code>chwconnect</code>). Community health workers, pregnant clients, child clients, and CHW visits. Over 70,000 visits modelled. CHW resolved via dual caregiver path pre-computed so downstream queries don't repeat the logic.</p>
+      </div>
+
+      <div class="cs-phase cs-phase-upcoming">
+        <div class="cs-phase-label">Phase 4 & 5 — Upcoming</div>
+        <p class="body">Visit responses (clinical data — HIV status, MUAC, nutrition, immunisation), growth measurements, referrals, and a combined de-identified dataset spanning both platforms for government and funder reporting.</p>
+      </div>
+    </section>
+
+    <!-- WHAT IT ENABLES -->
+    <section class="fade">
+      <div class="section-label">What it enables</div>
+      <p class="body">
+        Downstream dashboards that previously queried production directly now run off a clean, tested reporting layer. Clinical and programme queries that required complex multi-table joins with source-specific quirks hardcoded into every panel are now single-table queries against reliable mart tables.
+      </p>
+      <p class="body">
+        The mart is the foundation for the combined de-identified dataset that will support government planning and funder reporting — the long-term goal of the ECD Connect data infrastructure.
+      </p>
+      <div class="highlight">
+        <strong>Scale:</strong> Over 4,000 practitioners and community health workers. More than 16,000 children and clients. 70,000+ CHW visits. Two platforms, two source databases, one reporting layer.
+      </div>
+    </section>
+
+    <!-- CODE EXAMPLES -->
+    <section class="fade">
+      <div class="section-label">Code examples</div>
+      <p class="body">
+        Three excerpts from the working codebase. Each one reflects a decision that had to be figured out from the source data, not assumed from the schema.
+      </p>
+
+      <!-- SNIPPET 1 -->
+      <div class="cs-phase" style="margin-top: 24px;">
+        <div class="cs-phase-label">1. Dual caregiver path — <code>stg_chwconnect__child_clients.sql</code></div>
+        <p class="body">
+          Child clients in CHW Connect can be linked to a CHW via two different paths: a direct <code>Caregiver</code> record (<code>CaregiverId</code>), or a <code>Mother</code> record (<code>MotherCaregiverId</code>). Neither path is guaranteed to be populated. The <code>COALESCE</code> pattern below resolves this at the staging layer so every downstream model and every Grafana query uses the same logic without repeating it. The source <code>Visit</code> table has a <code>PractitionerId</code> column inherited from the shared ECD Connect codebase — it is never populated in the health context, so CHW resolution goes through the client record instead.
+        </p>
+        <pre style="background: var(--code-bg, #f5f5f0); border-radius: 6px; padding: 20px; overflow-x: auto; font-size: 13px; line-height: 1.6; margin-top: 12px;"><code><span style="color: var(--text-secondary, #888);">-- CHW resolved via dual caregiver path:
+--   primary:  Infant.CaregiverId → Caregiver.HealthCareWorkerId
+--   fallback: Infant.MotherCaregiverId → Mother.HealthCareWorkerId
+-- COALESCE used throughout — same pattern as all Grafana queries.
+--
+-- Source note: Visit.PractitionerId is a ghost column from the shared
+-- ECD Connect codebase. It is never populated in the health context.
+-- CHW resolution goes via the client record instead.</span>
+
+folder_close_events as (
+
+    select
+        er."InfantId"                   as child_client_id,
+        max(er."InsertedDate")          as folder_closed_at
+
+    from chwconnect."EventRecord" er
+    join chwconnect."EventRecordType" ert_child
+        on er."EventRecordTypeId" = ert_child."Id"
+    left join chwconnect."EventRecordType" ert_parent
+        on ert_child."ParentId" = ert_parent."Id"
+
+    where ert_parent."Name" = 'close_folder'
+      and er."InfantId" is not null
+
+    group by er."InfantId"
+
+),
+
+renamed as (
+
+    select
+        i."Id"                              as child_client_id,
+
+        <span style="color: var(--text-secondary, #888);">-- resolved CHW via caregiver path</span>
+        coalesce(
+            cg."HealthCareWorkerId",
+            m."HealthCareWorkerId"
+        )                                   as chw_id,
+
+        ...
+
+    from infants i
+    left join caregivers    cg  on i."CaregiverId"       = cg."Id"
+    left join mothers       m   on i."MotherCaregiverId" = m."Id"
+    left join health_care_workers hw
+        on coalesce(
+            cg."HealthCareWorkerId",
+            m."HealthCareWorkerId"
+        ) = hw."Id"
+    left join folder_close_events fce on i."Id" = fce.child_client_id
+
+)</code></pre>
+      </div>
+
+      <!-- SNIPPET 2 -->
+      <div class="cs-phase" style="margin-top: 24px;">
+        <div class="cs-phase-label">2. Role derivation — <code>schema.yml</code>, <code>dim_practitioners</code></div>
+        <p class="body">
+          The source <code>IsPrincipal</code> flag records what a user selected during onboarding, not whether they completed setup. Users commonly pick a role and then exit the flow without finishing, which leaves the source flag unreliable for reporting. The derived <code>role</code> column uses <code>PrincipalHierarchy</code> as the authoritative signal, with preschool ownership as a fallback. The original flag is preserved in <code>source_is_principal_selection</code> for auditing the gap between selection and committed state.
+        </p>
+        <pre style="background: var(--code-bg, #f5f5f0); border-radius: 6px; padding: 20px; overflow-x: auto; font-size: 13px; line-height: 1.6; margin-top: 12px;"><code>      - name: role
+        description: >
+          Derived, reliable role of the practitioner. One of
+          'principal', 'practitioner', or 'unknown'. See model
+          description for the derivation rules. Prefer this over
+          source_is_principal_selection for all role reporting.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['principal', 'practitioner', 'unknown']
+
+      - name: source_is_principal_selection
+        description: >
+          Raw Practitioner.IsPrincipal value from source — the user's
+          selection during onboarding. Nullable. Unreliable as a role
+          signal because users may select a role without completing
+          setup. Preserved for auditing the gap between onboarding
+          selection and committed role (e.g. "what % of users who
+          selected 'principal' actually completed preschool setup?").
+          Do NOT use for role reporting — use the role column.</code></pre>
+      </div>
+
+      <!-- SNIPPET 3 -->
+      <div class="cs-phase" style="margin-top: 24px;">
+        <div class="cs-phase-label">3. Ghost column rename and pre-computed latency — <code>schema.yml</code>, <code>fact_chw_visits</code></div>
+        <p class="body">
+          <code>Visit.PractitionerId</code> is renamed to <code>chw_id</code> at the staging layer with a note explaining the source naming quirk, so downstream models and analysts don't need to know about it. <code>visit_latency_days</code> is calculated at mart build time rather than in each dashboard panel — negative values are expected and indicate visits that happened before the planned date.
+        </p>
+        <pre style="background: var(--code-bg, #f5f5f0); border-radius: 6px; padding: 20px; overflow-x: auto; font-size: 13px; line-height: 1.6; margin-top: 12px;"><code>      - name: chw_id
+        description: >
+          FK to dim_chws. The CHW who conducted the visit.
+          Source column PractitionerId renamed to chw_id —
+          it references HealthCareWorker.Id, not an ecdconnect
+          practitioner. Visit.PractitionerId is a ghost column
+          from the shared codebase and is not populated in the
+          health context.
+
+      - name: visit_latency_days
+        description: >
+          Days between planned and actual visit date. Negative
+          when the visit occurred before the planned date.
+          Null when either date is missing. Pre-calculated at
+          mart build time so Grafana panels do not repeat
+          the logic.</code></pre>
+      </div>
+
+    </section>
+
+    <!-- BACK LINK -->
+    <div class="footer">
+      <a href="../case-studies.html">← All case studies</a>
+      <span>Kim Tichmann — Cape Town, South Africa</span>
+    </div>
+
+  </div>
+
+  <script>
+    const toggle = document.getElementById('theme-toggle');
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      toggle.textContent = '☀ Light';
+    }
+    toggle.addEventListener('click', function () {
+      if (document.documentElement.hasAttribute('data-theme')) {
+        document.documentElement.removeAttribute('data-theme');
+        toggle.textContent = '◑ Dark';
+        localStorage.setItem('theme', 'dark');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        toggle.textContent = '☀ Light';
+        localStorage.setItem('theme', 'light');
+      }
+    });
+  </script>
+</body>
+</html>
