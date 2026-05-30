@@ -26,7 +26,7 @@
 
     <!-- HEADER -->
     <div class="header">
-      <div class="eyebrow fade">Analytics Engineering · 2025–2026</div>
+      <div class="eyebrow fade">Analytics Engineering · 2026</div>
       <h1 class="fade" style="font-size: clamp(32px, 6vw, 52px);">Building a reporting data mart from a production app database</h1>
       <p class="tagline fade">
         ECD Connect · CHW Connect (Grow Great) · dbt · PostgreSQL · Git
@@ -39,7 +39,7 @@
       <div class="expertise-grid">
         <div class="expertise-item">
           <div class="label">The problem</div>
-          <div class="desc">Two production databases built for an app and a CMS — not for reporting. Getting reliable programme data out of them required understanding a schema that was never designed to be queried directly.</div>
+          <div class="desc">Two production databases optimised for app and CMS functionality. Built a dedicated reporting layer so that programme data could be queried reliably, efficiently, and without needing to understand the underlying application logic.</div>
         </div>
         <div class="expertise-item">
           <div class="label">What I built</div>
@@ -47,11 +47,11 @@
         </div>
         <div class="expertise-item">
           <div class="label">My role</div>
-          <div class="desc">Solo analytics engineer. Source database exploration, schema design, SQL, dbt modelling, testing, documentation, and data quality investigation — end to end.</div>
+          <div class="desc">Source database exploration, schema design, SQL, dbt modelling, testing, and documentation.</div>
         </div>
         <div class="expertise-item">
           <div class="label">Stack</div>
-          <div class="desc">PostgreSQL on Azure · dbt 1.11 · postgres_fdw · DBeaver · Git · Grafana (dashboards, upcoming)</div>
+          <div class="desc">PostgreSQL on Azure · dbt · DBeaver · Git · Grafana (dashboards)</div>
         </div>
       </div>
     </section>
@@ -60,32 +60,27 @@
     <section class="fade">
       <div class="section-label">Context</div>
       <p class="lead">
-        ECD Connect supports over 4,000 early childhood practitioners across South Africa. CHW Connect, built on the same codebase for Grow Great, supports community health workers visiting pregnant clients and infants in underserved communities.
-      </p>
+          ECD Connect and CHW Connect support over 4,000 early childhood practitioners and community health workers across South Africa. 
+          </p>
       <p class="body">
-        Both platforms generate rich programme data: attendance, child development assessments, practitioner registrations, income statements, CHW visits, clinical screenings. The problem was that all of it lived in a production database built for an app, not for analysis. Querying it directly meant dealing with misleading table names, unreliable flags, missing timestamps, and joins that only made sense once you understood the application logic behind them.
-      </p>
-      <p class="body">
-        Partner organisations and funders needed reliable programme data. Dashboards were being built directly against production. The process was fragile, slow, and dependent on whoever had written the query understanding all the source quirks. The goal was to build a clean, tested, documented reporting layer that would make all of that sustainable.
-      </p>
+        Both platforms generate rich programme data: attendance, child development assessments, practitioner registrations, income statements, CHW visits, clinical screenings. All of it lived in production databases optimised for application logic.
+        Dashboards I was building directly against production were slow, computationally costly, and created a single point of failure: reliable reporting depended entirely on one person knowing the schema. The goal was a clean, tested reporting layer that documented that knowledge into the models themselves, so any analyst could query reliably without needing to understand the underlying application logic.      </p>
     </section>
 
     <!-- SOURCE DATABASE -->
     <section class="fade">
-      <div class="section-label">Source database</div>
+      <div class="section-label">Source database exploration</div>
       <p class="lead">
         The schema was created for application logic rather reporting logic.
       </p>
       <p class="body">
-          Both source databases were built to serve an application and a CMS. That is what they are optimised for, and they do it well. The reporting data mart exists because querying an application database directly for analysis is slow, fragile, and requires anyone writing a query to understand the full application logic behind every table and join. The mart translates that into something analysts and dashboards can query reliably without that context.      </p>
-      <p class="body">
-        Building it also meant an opportunity to fix naming that had drifted from what the data actually represents. What should be called a "preschool" is named Classroom. What should be called a "class" is ClassroomGroup. Those get corrected once at the staging layer so nothing downstream inherits the confusion.
+      Understanding the source database meant months of exploration: tracing foreign keys, reading application code, testing assumptions against real data, and building up a mental model of what the schema actually represented versus what it was named. 
       </p>
       <p class="body">
-      Understanding the database meant months of exploration: tracing foreign keys, reading application code, testing assumptions against real data, and building up a mental model of what the schema actually represented versus what it was named. 
+        Building the data mart also meant an opportunity to fix naming that had drifted from what the data actually represents. What should be called a "preschool" is named Classroom. What should be called a "class" is ClassroomGroup. Those get corrected once at the staging layer so nothing downstream inherits the confusion.
       </p>
       <div class="highlight">
-        <strong>One example:</strong> Closing a client folder in the app triggers three different event types in the source database — only one of which sits under a <code>close_folder</code> parent type. The other two (<code>baby_was_born</code> and <code>miscarriage</code>) are top-level event types with no parent. Handling only the obvious path left folder-closed counts off by over 1,400 records. There were also 535 records where <code>IsActive</code> had been set to false with no corresponding event at all — a product bug, now ticketed.
+        <strong>One example:</strong> Closing a client folder in the app triggers three different event types in the source database — only one of which sits under a <code>close_folder</code> parent type. The other two (<code>baby_was_born</code> and <code>miscarriage</code>) are top-level event types with no parent. Handling only the obvious path left folder-closed counts off by over 1,400 records.
       </div>
     </section>
 
@@ -102,7 +97,7 @@
         </div>
         <div class="expertise-item">
           <div class="label">Intermediate layer</div>
-          <div class="desc">Complex join logic that would otherwise be repeated across multiple mart models — cohort membership resolution, deduplication patterns, derived flags.</div>
+          <div class="desc">Complex join logic that would otherwise be repeated across multiple mart models: cohort membership resolution, deduplication patterns, derived flags.</div>
         </div>
         <div class="expertise-item">
           <div class="label">Mart layer</div>
@@ -122,22 +117,22 @@
       <p class="body" style="margin-bottom: 20px;">Three phases complete, two in progress:</p>
 
       <div class="cs-phase">
-        <div class="cs-phase-label">Phase 1 — Education core ✅</div>
+        <div class="cs-phase-label">Phase 1: Education core ✅</div>
         <p class="body">Practitioners, preschools, classes, children, attendance, register completion, cohorts. The first end-to-end slice proving the pipeline worked.</p>
       </div>
 
       <div class="cs-phase">
-        <div class="cs-phase-label">Phase 2 — Education depth ✅</div>
+        <div class="cs-phase-label">Phase 2: Education depth ✅</div>
         <p class="body">Child progress reports and skill observations (with reverse-scoring logic), DBE registration tracking (with history-based recovery for a source bug), practitioner self-assessment forms, income statements. Ten models, all with documented data quality handling.</p>
       </div>
 
       <div class="cs-phase">
-        <div class="cs-phase-label">Phase 3 — Health mart ✅</div>
+        <div class="cs-phase-label">Phase 3: Health mart ✅</div>
         <p class="body">New schema (<code>mart_health</code>), new source database (<code>chwconnect</code>). Community health workers, pregnant clients, child clients, and CHW visits. Over 70,000 visits modelled. CHW resolved via dual caregiver path pre-computed so downstream queries don't repeat the logic.</p>
       </div>
 
       <div class="cs-phase cs-phase-upcoming">
-        <div class="cs-phase-label">Phase 4 & 5 — Upcoming</div>
+        <div class="cs-phase-label">Phase 4 & 5: Upcoming</div>
         <p class="body">Visit responses (clinical data — HIV status, MUAC, nutrition, immunisation), growth measurements, referrals, and a combined de-identified dataset spanning both platforms for government and funder reporting.</p>
       </div>
     </section>
